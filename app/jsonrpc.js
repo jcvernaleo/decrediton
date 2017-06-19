@@ -1,5 +1,6 @@
 // Inspired by bitcore's old rpc.
 var https = require('https');
+//import getCfg from './config.js';
 
 function RpcClient(opts) {
   opts = opts || {};
@@ -8,7 +9,6 @@ function RpcClient(opts) {
   this.user = opts.user || 'user';
   this.pass = opts.pass || 'pass';
   this.protocol = https;
-  this.disableAgent = opts.disableAgent || false;
   this.rejectUnauthorized = opts.rejectUnauthorized || false;
 }
 
@@ -84,13 +84,7 @@ function rpc(request, callback) {
     method: 'POST',
     port: self.port,
     rejectUnauthorized: self.rejectUnauthorized,
-    agent: self.disableAgent ? false : undefined,
   };
-  if (self.httpOptions) {
-    for (var k in self.httpOptions) {
-      options[k] = self.httpOptions[k];
-    }
-  }
   var err = null;
   var req = this.protocol.request(options, function(res) {
 
@@ -141,6 +135,7 @@ generateRPCMethods(RpcClient, methods, rpc);
 
 var run = function() {
   var config = {
+    //user: cfg.getCfg.get('rpc_user'),
     user: 'USER',
     pass: 'PASSWORD',
     host: '127.0.0.1',
