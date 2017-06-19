@@ -1,5 +1,4 @@
 // Inspired by bitcore's old rpc.
-var http = require('http');
 var https = require('https');
 
 function RpcClient(opts) {
@@ -8,7 +7,7 @@ function RpcClient(opts) {
   this.port = opts.port || 8332;
   this.user = opts.user || 'user';
   this.pass = opts.pass || 'pass';
-  this.protocol = (opts.protocol == 'http') ? http : https;
+  this.protocol = https;
   this.disableAgent = opts.disableAgent || false;
   this.rejectUnauthorized = opts.rejectUnauthorized || false;
 }
@@ -101,11 +100,11 @@ function rpc(request, callback) {
     });
     res.on('end', function() {
       if (res.statusCode == 401) {
-        callback(new Error('bitcoin JSON-RPC connection rejected: 401 unauthorized'));
+        callback(new Error('JSON-RPC connection rejected: 401 unauthorized'));
         return;
       }
       if (res.statusCode == 403) {
-        callback(new Error('bitcoin JSON-RPC connection rejected: 403 forbidden'));
+        callback(new Error('JSON-RPC connection rejected: 403 forbidden'));
         return;
       }
 
@@ -126,7 +125,7 @@ function rpc(request, callback) {
     });
   });
   req.on('error', function(e) {
-    var err = new Error('Could not connect to bitcoin via RPC at host: ' + self.host + ' port: ' + self.port + ' Error: ' + e.message);
+    var err = new Error('Could not connect to dcrd via RPC at host: ' + self.host + ' port: ' + self.port + ' Error: ' + e.message);
     console.log(err);
     callback(err);
   });
@@ -142,11 +141,10 @@ generateRPCMethods(RpcClient, methods, rpc);
 
 var run = function() {
   var config = {
-    protocol: 'https',
-    user: 'user',
-    pass: 'pass',
+    user: 'USER',
+    pass: 'PASSWORD',
     host: '127.0.0.1',
-    port: '19109',
+    port: '19119',
   };
 
   var rpc = new RpcClient(config);
