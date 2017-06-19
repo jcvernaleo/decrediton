@@ -8,8 +8,6 @@ function RpcClient(opts) {
   this.port = opts.port || 8332;
   this.user = opts.user || 'user';
   this.pass = opts.pass || 'pass';
-  this.protocol = https;
-  this.rejectUnauthorized = opts.rejectUnauthorized || false;
 }
 
 var methods = {
@@ -86,7 +84,7 @@ function rpc(request, callback) {
     rejectUnauthorized: self.rejectUnauthorized,
   };
   var err = null;
-  var req = this.protocol.request(options, function(res) {
+  var req = https.request(options, function(res) {
 
     var buf = '';
     res.on('data', function(data) {
