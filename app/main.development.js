@@ -5,6 +5,7 @@ import os from 'os';
 import parseArgs from 'minimist';
 import mv from 'mv';
 import winston from 'winston';
+import RpcCLient from './jsonrpc.js';
 
 let menu;
 let template;
@@ -256,6 +257,21 @@ app.on('ready', async () => {
       logger.log('error', 'error launching dcrwallet: ' + e);
     }
   }
+
+  var rpcconf = {
+    user: 'USER',
+    pass: 'PASSWORD',
+    host: '127.0.0.1',
+    port: '19119',
+  };
+  var rpc = new RpcCLient(rpcconf);
+  rpc.getBlockCount(function(err, ret) {
+    if (err) {
+      console.error('An error occured fetching blockheight');
+      console.error(err);
+    }
+    console.log(ret);
+  };
 
   mainWindow = new BrowserWindow({
     show: false,
