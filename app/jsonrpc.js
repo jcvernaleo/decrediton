@@ -29,14 +29,14 @@ function generateRPCMethods(constructor, apiCalls, rpc) {
       var limit = arguments.length - 1;
       for (var i = 0; i < limit; i++) {
         if (argMap[i]) arguments[i] = argMap[i](arguments[i]);
-      };
+      }
       rpc.call(this, {
         method: methodName,
         params: slice(arguments, 0, arguments.length - 1),
-        id: "rpc-node"
+        id: 'rpc-node'
       }, arguments[arguments.length - 1]);
     };
-  };
+  }
 
   var types = {
     str: function(arg) {
@@ -70,10 +70,10 @@ function generateRPCMethods(constructor, apiCalls, rpc) {
   }
 }
 
-function rpc(request, callback) {
+function rpc(requestIn, callback) {
   var self = this;
   var request;
-  request = JSON.stringify(request);
+  request = JSON.stringify(requestIn);
   var auth = Buffer(self.user + ':' + self.pass).toString('base64');
 
   var options = {
@@ -127,7 +127,7 @@ function rpc(request, callback) {
   req.setHeader('Authorization', 'Basic ' + auth);
   req.write(request);
   req.end();
-};
+}
 
 generateRPCMethods(RpcClient, methods, rpc);
 

@@ -265,13 +265,6 @@ app.on('ready', async () => {
     port: '19119',
   };
   var rpc = new RpcCLient(rpcconf);
-  rpc.getBlockCount(function(err, ret) {
-    if (err) {
-      console.error('An error occured fetching blockheight');
-      console.error(err);
-    }
-    console.log(ret);
-  };
 
   mainWindow = new BrowserWindow({
     show: false,
