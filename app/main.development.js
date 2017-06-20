@@ -259,9 +259,6 @@ app.on('ready', async () => {
   }
 
   var rpcconf = {
-    user: 'USER',
-    pass: 'PASSWORD',
-    host: '127.0.0.1',
     port: '19119',
   };
   var rpc = new RpcCLient(rpcconf);

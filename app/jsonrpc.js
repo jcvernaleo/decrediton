@@ -1,13 +1,15 @@
 // Inspired by bitcore's old rpc.
 var https = require('https');
-//import getCfg from './config.js';
+import getCfg from './config.js';
 
 function RpcClient(opts) {
+  var cfg = getCfg();
+
   opts = opts || {};
-  this.host = opts.host || '127.0.0.1';
+  this.host = '127.0.0.1';
   this.port = opts.port || 8332;
-  this.user = opts.user || 'user';
-  this.pass = opts.pass || 'pass';
+  this.user = cfg.get('rpc_user');
+  this.pass = cfg.get('rpc_pass');
 }
 
 var methods = {
