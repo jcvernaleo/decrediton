@@ -57,6 +57,14 @@ if (process.env.NODE_ENV === 'development') {
 // Always use reasonable path for save data.
 app.setPath('userData', appDataDirectory());
 var cfg = getCfg();
+var rpc = RpcCLient();
+//  rpc.getBlockCount(function(err, ret) {
+//    if (err) {
+//      console.log(err);
+//    }
+//    console.log(ret);
+//  });
+
 
 var logger = new (winston.Logger)({
   transports: [
@@ -257,14 +265,6 @@ app.on('ready', async () => {
       logger.log('error', 'error launching dcrwallet: ' + e);
     }
   }
-
-  var rpc = new RpcCLient();
-  rpc.getBlockCount(function(err, ret) {
-    if (err) {
-      console.error(err);
-    }
-    console.log(ret);
-  });
 
   mainWindow = new BrowserWindow({
     show: false,
