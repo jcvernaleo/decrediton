@@ -2,12 +2,10 @@
 var https = require('https');
 import getCfg from './config.js';
 
-function RpcClient(opts) {
+function RpcClient() {
   var cfg = getCfg();
-
-  opts = opts || {};
   this.host = '127.0.0.1';
-  this.port = opts.port || 8332;
+  this.port = cfg.RPCDaemonPort();
   this.user = cfg.get('rpc_user');
   this.pass = cfg.get('rpc_pass');
 }
@@ -132,37 +130,3 @@ function rpc(requestIn, callback) {
 }
 
 generateRPCMethods(RpcClient, methods, rpc);
-
-var run = function() {
-  var config = {
-    //user: cfg.getCfg.get('rpc_user'),
-    user: 'USER',
-    pass: 'PASSWORD',
-    host: '127.0.0.1',
-    port: '19119',
-  };
-
-  var rpc = new RpcClient(config);
-
-  rpc.getBlockCount(function(err, ret) {
-    if (err) {
-      console.error('An error occured fetching blockheight');
-      console.error(err);
-      return;
-    }
-    console.log(ret);
-  });
-  rpc.ping(function(err, ret) {
-    if (err) {
-      console.error('An error occured with ping');
-      console.error(err);
-      return;
-    }
-    console.log(ret);
-  });
-};
-
-module.exports.run = run;
-if (require.main === module) {
-  run();
-}

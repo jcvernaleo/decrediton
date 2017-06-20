@@ -258,10 +258,7 @@ app.on('ready', async () => {
     }
   }
 
-  var rpcconf = {
-    port: '19119',
-  };
-  var rpc = new RpcCLient(rpcconf);
+  var rpc = new RpcCLient();
   rpc.getBlockCount(function(err, ret) {
     if (err) {
       console.error(err);
