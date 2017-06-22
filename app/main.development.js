@@ -443,6 +443,17 @@ app.on('ready', async () => {
             }
           });
           cleanShutdown();
+	}
+      }, {
+        label: 'Restart dcrwallet',
+        click() {
+          if (debug) {
+            console.log('Restarting dcrwallet');
+          }
+          closeDCRW();
+          launchDCRWallet();
+	  app.quit();
+	  app.relaunch();
         }
       }]
     }, {
