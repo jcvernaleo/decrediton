@@ -1,14 +1,14 @@
-// Inspired by bitcore's old rpc.
-var https = require('https');
-import getCfg from './config.js';
+// // Inspired by bitcore's old rpc.
+// var https = require('https');
+// import getCfg from './config.js';
 
-function RpcClient() {
-  var cfg = getCfg();
-  this.host = '127.0.0.1';
-  this.port = cfg.RPCDaemonPort();
-  this.user = cfg.get('rpc_user');
-  this.pass = cfg.get('rpc_pass');
-}
+// function RpcClient() {
+//   var cfg = getCfg();
+//   this.host = '127.0.0.1';
+//   this.port = cfg.RPCDaemonPort();
+//   this.user = cfg.get('rpc_user');
+//   this.pass = cfg.get('rpc_pass');
+// }
 
 // var methods = {
 //   getBestBlockHash: '',
@@ -130,3 +130,30 @@ function RpcClient() {
 // }
 
 //generateRPCMethods(RpcClient, methods, rpc);
+
+var fs = require('fs');
+var WebSocket = require('ws');
+//   this.host = '127.0.0.1';
+//   this.port = cfg.RPCDaemonPort();
+//   this.user = cfg.get('rpc_user');
+//   this.pass = cfg.get('rpc_pass');
+var ws = new WebSocket('wss://127.0.0.1:19109/ws', {
+  headers: {
+    'Authorization': 'Basic '+new Buffer(user+':'+password).toString('base64')
+  },
+  cert: cert,
+  ca: [cert]
+});
+ws.on('open', function() {
+  console.log('CONNECTED');
+  ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
+});
+ws.on('message', function(data, flags) {
+    console.log(data);
+});
+ws.on('error', function(derp) {
+  console.log('ERROR:' + derp);
+})
+ws.on('close', function(data) {
+  console.log('DISCONNECTED');
+})
