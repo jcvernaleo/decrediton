@@ -137,6 +137,11 @@ var WebSocket = require('ws');
 //   this.port = cfg.RPCDaemonPort();
 //   this.user = cfg.get('rpc_user');
 //   this.pass = cfg.get('rpc_pass');
+
+var cert = fs.readFileSync('/home/jcv/.dcrd/rpc.cert');
+var user = "user";
+var password = "pass";
+
 var ws = new WebSocket('wss://127.0.0.1:19109/ws', {
   headers: {
     'Authorization': 'Basic '+new Buffer(user+':'+password).toString('base64')
