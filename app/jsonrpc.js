@@ -2,7 +2,7 @@ var WebSocket = require('ws');
 import { getCfg, getCert } from './config.js';
 
 var cfg = getCfg();
-var cert = cfg.getCert();
+var cert = getCert();
 var user = cfg.get('rpc_user');
 var password = cfg.get('rpc_pass');
 var url = 'wss://' + cfg.get('daemon_rpc_host') + ':' + cfg.RPCDaemonPort() + 'ws';
@@ -18,12 +18,12 @@ ws.on('open', function() {
   console.log('CONNECTED');
   ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
 });
-ws.on('message', function(data, flags) {
-    console.log(data);
+ws.on('message', function(data) {
+  console.log(data);
 });
-ws.on('error', function(derp) {
-  console.log('ERROR:' + derp);
-})
-ws.on('close', function(data) {
+ws.on('error', function(err) {
+  console.log('ERROR:' + err);
+});
+ws.on('close', function() {
   console.log('DISCONNECTED');
-})
+});
