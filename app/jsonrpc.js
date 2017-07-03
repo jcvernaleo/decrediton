@@ -4,7 +4,7 @@ import { getCfg, getCert } from './config.js';
 //var cfg = getCfg();
 //var cert = getCert();
 
-export function dcrdRPC(cfg, cert) {
+export function dcrdRPC(cfg, cert, method) {
   var user = cfg.get('rpc_user');
   var password = cfg.get('rpc_pass');
   var url = 'wss://' + cfg.get('daemon_rpc_host') + ':' + cfg.RPCDaemonPort() + 'ws';
@@ -18,7 +18,10 @@ export function dcrdRPC(cfg, cert) {
   });
   ws.on('open', function() {
     console.log('CONNECTED');
-    ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
+    if (method === 'getblockcount') {
+      ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
+    } else {
+      console.log('Unsupported method: ', method);
   });
   ws.on('message', function(data) {
     console.log(data);
