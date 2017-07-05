@@ -18,9 +18,10 @@ export function dcrdRPC(cfg, cert, method) {
   });
   ws.on('open', function() {
     console.log('CONNECTED');
-    if (method === 'getblockcount') {
+    switch(method):
+    case 'getblockcount':
       ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
-    } else {
+    default:
       console.log('Unsupported method: ', method);
   });
   ws.on('message', function(data) {
