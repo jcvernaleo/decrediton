@@ -1,8 +1,4 @@
 var WebSocket = require('ws');
-import { getCfg, getCert } from './config.js';
-
-//var cfg = getCfg();
-//var cert = getCert();
 
 export function dcrdRPC(cfg, cert, method) {
   var user = cfg.get('rpc_user');
@@ -18,11 +14,13 @@ export function dcrdRPC(cfg, cert, method) {
   });
   ws.on('open', function() {
     console.log('CONNECTED');
-    switch(method):
+    switch(method) {
     case 'getblockcount':
       ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
+      break;
     default:
       console.log('Unsupported method: ', method);
+    }
   });
   ws.on('message', function(data) {
     console.log(data);
