@@ -18,6 +18,15 @@ export function dcrdRPC(cfg, cert, method) {
     case 'getblockcount':
       ws.send('{"jsonrpc":"1.0","id":"0","method":"getblockcount","params":[]}');
       break;
+    case 'ping':
+      ws.send('{"jsonrpc":"1.0","id":"0","method":"ping","params":[]}');
+      break;
+    case 'getbestblock':
+      ws.send('{"jsonrpc":"1.0","id":"0","method":"getbestblock","params":[]}');
+      break;
+    case 'stop':
+      ws.send('{"jsonrpc":"1.0","id":"0","method":"stop","params":[]}');
+      break;
     default:
       console.log('Unsupported method: ', method);
     }
