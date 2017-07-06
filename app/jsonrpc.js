@@ -33,7 +33,9 @@ export function dcrdRPC(cfg, cert, method) {
     }
   });
   ws.on('message', function(data) {
-    console.log(data);
+    var res = JSON.parse(data)
+    console.log(res.result);
+    return res.result
   });
   ws.on('error', function(err) {
     console.log('ERROR:' + err);
