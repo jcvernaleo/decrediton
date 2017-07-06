@@ -1,4 +1,5 @@
-var WebSocket = require('ws');
+import WebSocket from 'ws';
+//var WebSocket = require('ws');
 
 export function dcrdRPC(cfg, cert, method) {
   var user = cfg.get('rpc_user');

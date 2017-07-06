@@ -57,7 +57,7 @@ if (process.env.NODE_ENV === 'development') {
 // Always use reasonable path for save data.
 app.setPath('userData', appDataDirectory());
 var cfg = getCfg();
-dcrdRPC(cfg, getCert, 'ping');
+dcrdRPC(cfg, getCert(), 'ping');
 
 var logger = new (winston.Logger)({
   transports: [
