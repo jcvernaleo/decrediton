@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
-import { getCfg, appDataDirectory, dcrdCfg, dcrwCfg, writeCfgs, getDcrdPath, getWalletFile } from './config.js';
+import { getCfg, getCert, appDataDirectory, dcrdCfg, dcrwCfg, writeCfgs, getDcrdPath, getWalletFile } from './config.js';
 import path from 'path';
 import os from 'os';
 import parseArgs from 'minimist';
@@ -57,14 +57,7 @@ if (process.env.NODE_ENV === 'development') {
 // Always use reasonable path for save data.
 app.setPath('userData', appDataDirectory());
 var cfg = getCfg();
-var rpc = RpcCLient();
-//  rpc.getBlockCount(function(err, ret) {
-//    if (err) {
-//      console.log(err);
-//    }
-//    console.log(ret);
-//  });
-
+dcrdRPC(cfg, getCert, 'ping');
 
 var logger = new (winston.Logger)({
   transports: [
