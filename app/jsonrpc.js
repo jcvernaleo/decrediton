@@ -35,12 +35,17 @@ export function dcrdRPC(cfg, cert, method) {
   ws.on('message', function(data) {
     var res = JSON.parse(data)
     console.log(res.result);
+    ws.close();
     return res.result
   });
   ws.on('error', function(err) {
     console.log('ERROR:' + err);
+    ws.close();
+    return;
   });
   ws.on('close', function() {
     console.log('DISCONNECTED');
+    ws.close();
+    return;
   });
 }
