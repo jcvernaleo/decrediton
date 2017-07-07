@@ -1,7 +1,7 @@
 import WebSocket from 'ws';
 //var WebSocket = require('ws');
 
-export function dcrdRPC(cfg, cert, method, debug) {
+export async function dcrdRPC(cfg, cert, method, debug) {
   var user = cfg.get('rpc_user');
   var password = cfg.get('rpc_pass');
   var url = 'wss://' + cfg.get('daemon_rpc_host') + ':' + cfg.RPCDaemonPort() + 'ws';
@@ -45,7 +45,7 @@ export function dcrdRPC(cfg, cert, method, debug) {
       ws.send(cmdString);
     }
   });
-  ws.on('message', function(data) {
+  await ws.on('message', function(data) {
     var res = JSON.parse(data)
     if (res.id == id) {
       if (debug) {
