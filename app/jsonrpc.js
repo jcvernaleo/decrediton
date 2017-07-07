@@ -20,16 +20,16 @@ export function dcrdRPC(cfg, cert, method) {
     console.log('CONNECTED');
     switch(method) {
     case 'getblockcount':
-      cmdString = cmdStart + id.toString() + '","method":"getblockcount","params":[]}';
+      cmdString = cmdStart + id.toString() + '","method":"' + method + '","params":[]}';
       break;
     case 'ping':
-      cmdString = cmdStart + id.toString() + '","method":"ping","params":[]}';
+      cmdString = cmdStart + id.toString() + '","method":"' + method + '","params":[]}';
       break;
     case 'getbestblock':
-      cmdString = cmdStart + id.toString() + '","method":"getblestblock","params":[]}';
+      cmdString = cmdStart + id.toString() + '","method":"' + method + '","params":[]}';
       break;
     case 'stop':
-      cmdString = cmdStart + id.toString() + '","method":"stop","params":[]}';
+      cmdString = cmdStart + id.toString() + '","method":"' + method + '","params":[]}';
       break;
     default:
       console.log('Unsupported method: ', method);
