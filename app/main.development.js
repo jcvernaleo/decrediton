@@ -5,7 +5,7 @@ import os from 'os';
 import parseArgs from 'minimist';
 import mv from 'mv';
 import winston from 'winston';
-import RpcCLient from './jsonrpc.js';
+import dcrdRPC from './jsonrpc.js';
 
 let menu;
 let template;
