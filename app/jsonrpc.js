@@ -35,21 +35,21 @@ export async function dcrdRPC(cfg, cert, method, debug) {
       break;
     default:
       if (debug) {
-	console.log('Unsupported method: ', method);
+        console.log('Unsupported method: ', method);
       }
     }
     if (cmdString !== '') {
       if (debug) {
-	console.log(cmdString);
+        console.log(cmdString);
       }
       ws.send(cmdString);
     }
   });
   await ws.on('message', function(data) {
-    var res = JSON.parse(data)
+    var res = JSON.parse(data);
     if (res.id == id) {
       if (debug) {
-	console.log(res)
+        console.log(res);
       }
       console.log(res.result);
       ws.close();
