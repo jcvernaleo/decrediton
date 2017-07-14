@@ -442,7 +442,7 @@ app.on('ready', async () => {
               logger.log('error', 'Cannot remove file!', err);
             }
           });
-	  cfg.set('stakepools', Array());
+          cfg.set('stakepools', Array());
           cleanShutdown();
         }
       }]
