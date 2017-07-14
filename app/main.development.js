@@ -442,6 +442,15 @@ app.on('ready', async () => {
               logger.log('error', 'Cannot remove file!', err);
             }
           });
+	  var currentStakePoolConfig = cfg.get('stakepools');
+	  if (currentStakePoolConfig !== undefined) {
+	    for (var i = 0; i < currentStakePoolConfig.length; i++) {
+	      if (currentStakePoolConfig[i].Network == cfg.get('network')) {
+		console.log('need to delete')
+	      }
+	    }
+	  }
+
           cfg.set('stakepools', Array());
           cleanShutdown();
         }
