@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu, shell } from 'electron';
-import { getCfg, appDataDirectory, dcrdCfg, dcrwCfg, writeCfgs, getDcrdPath, getWalletFile } from './config.js';
+import { getCfg, appDataDirectory, dcrdCfg, dcrwCfg, writeCfgs, getDcrdPath, getWalletFile, stakepoolClear } from './config.js';
 import path from 'path';
 import os from 'os';
 import parseArgs from 'minimist';
@@ -442,16 +442,7 @@ app.on('ready', async () => {
               logger.log('error', 'Cannot remove file!', err);
             }
           });
-	  var currentStakePoolConfig = cfg.get('stakepools');
-	  if (currentStakePoolConfig !== undefined) {
-	    for (var i = 0; i < currentStakePoolConfig.length; i++) {
-	      if (currentStakePoolConfig[i].Network == cfg.get('network')) {
-		console.log('need to delete')
-	      }
-	    }
-	  }
-
-          cfg.set('stakepools', Array());
+	  stakePoolClear(cfg);
           cleanShutdown();
         }
       }]
