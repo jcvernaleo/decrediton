@@ -130,25 +130,8 @@ export function getCfg(update) {
 
 export function stakePoolEdit(config) {
     if (!config.has('stakepools') || config.get('stakepools') == null) {
-    stakePoolInfo(function(response, err) {
-      if (response == null) {
-        console.log(err);
-      } else {
-        var stakePoolNames = Object.keys(response.data);
-        // Only add matching network stakepool info
-        var foundStakePoolConfigs = Array();
-        for (var i = 0; i < stakePoolNames.length; i++) {
-          if (response.data[stakePoolNames[i]].APIEnabled) {
-            foundStakePoolConfigs.push({
-              Host:response.data[stakePoolNames[i]].URL,
-              Network: response.data[stakePoolNames[i]].Network,
-              APIVersionsSupported: response.data[stakePoolNames[i]].APIVersionsSupported,
-            });
-          }
-        }
-        config.set('stakepools', foundStakePoolConfigs);}
-    });
-  } else if (!update) {
+      return(config);
+    } else {
     var currentStakePoolConfigs = config.get('stakepools');
     stakePoolInfo(function(response, err) {
       if (response == null) {
